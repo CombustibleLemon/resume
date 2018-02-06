@@ -52,7 +52,7 @@
 
 \newfontfamily\bodyfont[]{Segoe UI}
 \newfontfamily\thinfont[]{Segoe UI Light}
-\newfontfamily\headingfont[]{Segoe UI Condensed Bold}
+\newfontfamily\headingfont[]{Segoe UI Bold}
 
 \defaultfontfeatures{Mapping=tex-text}
 \setmainfont[Mapping=tex-text, Color=textcolor]{Segoe UI Light}
