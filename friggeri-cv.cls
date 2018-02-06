@@ -31,6 +31,7 @@
   \colorlet{green}{gray}
   \colorlet{orange}{gray}
   \colorlet{purple}{gray}
+  \colorlet{brown}{gray}
   \colorlet{red}{gray}
   \colorlet{blue}{gray}
   \colorlet{fillheader}{white}
@@ -46,41 +47,17 @@
 % Fonts %
 %%%%%%%%%
 
-% \RequirePackage[quiet]{fontspec}
-% \RequirePackage[math-style=TeX,vargreek-shape=unicode]{unicode-math}
-% 
-% \newfontfamily\bodyfont[]{Helvetica Neue}
-% \newfontfamily\thinfont[]{Helvetica Neue UltraLight}
-% \newfontfamily\headingfont[]{Helvetica Neue Condensed Bold}
-% 
-% \defaultfontfeatures{Mapping=tex-text}
-% \setmainfont[Mapping=tex-text, Color=textcolor]{Helvetica Neue Light}
-% 
-% \setmathfont{XITS Math}
-
-%%% modified by Karol Kozioł for ShareLaTex use
 \RequirePackage[quiet]{fontspec}
-\RequirePackage[math-style=TeX]{unicode-math}
+\RequirePackage{unicode-math}
 
-\newfontfamily\bodyfont
-[BoldFont=texgyreheros-bold.otf,
-ItalicFont=texgyreheros-italic.otf,
-BoldItalicFont=texgyreheros-bolditalic.otf]
-{texgyreheros-regular.otf}
-\newfontfamily\thinfont[]{Lato-Light.ttf}
-\newfontfamily\headingfont[]{texgyreheros-bold.otf}
+\newfontfamily\bodyfont[]{Segoe UI}
+\newfontfamily\thinfont[]{Segoe UI Light}
+\newfontfamily\headingfont[]{Segoe UI Bold}
 
 \defaultfontfeatures{Mapping=tex-text}
-\setmainfont
-[Mapping=tex-text, Color=textcolor,
-BoldFont=texgyreheros-bold.otf,
-ItalicFont=texgyreheros-italic.otf,
-BoldItalicFont=texgyreheros-bolditalic.otf
-]
-{texgyreheros-regular.otf}
+\setmainfont[Mapping=tex-text, Color=textcolor]{Segoe UI Light}
 
-\setmathfont{texgyreheros-regular.otf}
-%%%
+%\setmathfont{XITS Math}
 
 %%%%%%%%%%
 % Header %
@@ -125,7 +102,8 @@ BoldItalicFont=texgyreheros-bolditalic.otf
         red\or%
         orange\or%
         green\or%
-        purple\else%
+        purple\or%
+        brown\else%
         headercolor\fi%
     } #1#2#3%
   }%
@@ -143,9 +121,13 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 
 \renewcommand{\subsection}[1]{
   \par\vspace{.5\parskip}%
-  {%
-  \large\headingfont\color{headercolor} #1%
-  }
+  {\Large\headingfont\color{headercolor} #1}
+  \par\vspace{.25\parskip}%
+}
+
+\renewcommand{\subsubsection}[2]{
+  \par\vspace{.5\parskip}%
+  {\Large\headingfont\color{headercolor} #2}
   \par\vspace{.25\parskip}%
 }
 
@@ -201,6 +183,7 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 \RequirePackage[style=verbose, maxnames=99, sorting=ydnt]{biblatex}
 
 \DeclareFieldFormat[article]{title}{#1\par}
+\DeclareFieldFormat[book]{title}{#1\par}
 \DeclareFieldFormat[inproceedings]{title}{#1\par}
 \DeclareFieldFormat[misc]{title}{#1\par}
 \DeclareFieldFormat[report]{title}{#1\par}
@@ -224,6 +207,27 @@ BoldItalicFont=texgyreheros-bolditalic.otf
   }
   \par\vspace{0.3\baselineskip}
 }
+
+\DeclareBibliographyDriver{book}{%
+  \printfield{title}%
+  \newblock%
+  \printnames{author}%
+  \par%
+  \newblock%
+  {%
+    \footnotesize\addfontfeature{Color=lightgray}\itshape%
+    \printlist{publisher}%
+    \setunit*{\addcomma\space}%
+    \printfield{note}%
+    \setunit*{\addcomma\space}%
+    \printfield{year}%
+    \setunit{\addcomma\space}%
+    \printlist{location}%
+    \newunit%
+  }
+  \par\vspace{0.3\baselineskip}
+}
+
 
 \DeclareBibliographyDriver{inproceedings}{%
   \printfield{title}%
@@ -283,16 +287,21 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 
 \DeclareNameFormat{author}{%
   \small\addfontfeature{Color=lightgray}%
-  \ifblank{##3}{}{##3\space}#1%
+  \ifblank{\namepartgiven}{}{\namepartgiven\space}#1%
   \ifthenelse{\value{listcount}<\value{liststop}}
     {\addcomma\space}
     {}%
 }
 
+\defbibheading{bibheading}[\bibname]{%
+   \subsubsection*{#1}
+   \markboth{#1}{#1}
+}
+
 \newcommand{\printbibsection}[2]{
   \begin{refsection}
     \nocite{*}
-    \printbibliography[sorting=chronological, type={#1}, title={#2}, heading=subbibliography]
+    \printbibliography[sorting=chronological, type={#1}, title={#2}, heading=bibheading]
   \end{refsection}
 }
 
@@ -309,3 +318,14 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 
 \RequirePackage[left=6.1cm,top=2cm,right=1.5cm,bottom=2.5cm,nohead,nofoot]{geometry}
 \RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=false,       
+    linkcolor=red,          
+    citecolor=red,        
+    filecolor=red,      
+    urlcolor = red}
+    
+% A fix for \href{}{} colors not working with fontspec
+\makeatletter
+\def\HyColor@@@@UseColor#1\@nil{\addfontfeatures{Color=#1}}
+\makeatother
