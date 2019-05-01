@@ -1,0 +1,94 @@
+% !TEX program = xelatex
+
+\documentclass{article}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{bibliography.bib}
+
+\begin{document}
+\pagenumbering{gobble} % suppress displaying page number
+
+\name{Daniel Leonard}
+
+\basicInfo{
+  \email{dleona9@illinois.edu} \textperiodcentered\
+  \phone{+1 847 707-7458} \textperiodcentered\
+  \website{https://danleonard.us}
+}
+
+\section{Education}
+\seceducation
+	{2016 -- Present}
+	{University of Illinois at Urbana--Champaign}
+	{Champaign, Illinois}
+	{B.A.}
+	{Anthropology}
+	{Sub-Saharan African Languages, Integrative Biology}
+	{}
+
+\section{Experience}
+\secexperience
+	{2018}
+	{Circulation Assistant}
+	{International and Area Studies Library}
+	{University of Illinois}
+	{
+		\begin{itemize}
+			\item Assisted patrons in finding library resources
+			\item Shut down and secured library at closing time
+		\end{itemize}
+	}
+\secexperience
+	{2017 -- 2018}
+	{Security Guard}
+	{Krannert Art Museum}
+	{University of Illinois}
+	{
+		\begin{itemize}
+			\item Assisted patrons in navigating the museum
+			\item Patrolled for potentially dangerous activity
+		\end{itemize}
+	}
+
+% Reference Test
+%\datedsubsection{\textbf{Paper Title\cite{zaharia2012resilient}}}{May. 2015}
+%An xxx optimized for xxx\cite{verma2015large}
+%\begin{itemize}
+%  \item main contribution
+%\end{itemize}
+
+\section{Conference Presentations}
+\printbibliography[type=inproceedings]
+
+\section{Awards and Grants}
+\secgrant
+	{2019}
+	{175}
+	{Department of Undergraduate Research}
+	{University of Illinois}
+	{U. of Minnesota Undergraduate Research Symposium}
+	{TITLE}
+
+\section{Skills}
+\begin{itemize}[parsep=0.5ex]
+  \item Programming Languages: C == Python > C++ > Java
+  \item Platform: Linux
+  \item Development: Web, xxx
+\end{itemize}
+
+\section{Honors and Awards}
+\datedline{\textit{\nth{1} Prize}, Award on xxx }{Jun. 2013}
+\datedline{Other awards}{2015}
+
+\section{Miscellaneous}
+\begin{itemize}[parsep=0.5ex]
+  \item Blog: http://your.blog.me
+  \item GitHub: https://github.com/username
+  \item Languages: English - Fluent, Mandarin - Native speaker
+\end{itemize}
+
+%% Reference
+%\newpage
+%\bibliographystyle{IEEETran}
+%\bibliography{mycite}
+\end{document}
