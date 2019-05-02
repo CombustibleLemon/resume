@@ -103,6 +103,13 @@
 	\end{center}
 }
 
+\hypersetup
+	{
+		baseurl=https://github.com/CombustibleLemon/resume,
+		pdftitle=\@title,
+		pdfauthor=\@author
+	}
+
 \def\instring#1#2{TT\fi\begingroup
   \edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
 \makeatother
