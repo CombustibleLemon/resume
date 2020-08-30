@@ -11,7 +11,7 @@
 	\RequirePackage{fontspec}
 	\RequirePackage{polyglossia}
 	\setdefaultlanguage[variant=american]{english}
-% 	\usepackage{unicode-math}
+	\usepackage{unicode-math}
 	\setmainfont{CMU Serif}
 	\setsansfont{CMU Sans Serif}
 	\setmonofont{CMU Typewriter Text}
