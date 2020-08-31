@@ -3,7 +3,7 @@
 \LoadClass[letterpaper]{article}
 
 %\NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesClass{cv}%[2020/08/30 v2]
+\ProvidesClass{cv}[2020/08/30 v2]
 
 \usepackage{iftex}
 
@@ -25,8 +25,9 @@
 	\RequirePackage{babel}
 \fi
 
-%\RequirePackage{accessibility}
+% \RequirePackage{accessibility}
 \RequirePackage{hyperref}
+% \RequirePackage{hyperxmp}
 \RequirePackage[raise]{datetime}
 \RequirePackage{csquotes}
 \RequirePackage{titlesec}
@@ -98,6 +99,7 @@
 %    firstinits=false,
     bibencoding=utf8
 ]{biblatex}
+% \RequirePackage{pdfx}
 
 \RequirePackage[
 	letterpaper,
@@ -153,24 +155,24 @@
     []
 \titlespacing*{\section}{0cm}{0mm}{*0}
 
-\titleformat{\subsection}         % Customise the \section command
-  {\Large\scshape\raggedright} % Make the \section headers large (\Large),
+\titleformat{\subsection}         % Customise the \subsection command
+  {\Large\scshape\raggedright} % Make the \subsection headers large (\Large),
                                % small capitals (\scshape) and left aligned (\raggedright)
   {}{0em}                      % Can be used to give a prefix to all sections, like 'Section ...'
   {}                           % Can be used to insert code before the heading
   [\titlerule]                 % Inserts a horizontal line after the heading
-\titlespacing*{\subsection}{0cm}{*-0.75}{*1.8}
+\titlespacing*{\subsection}{0cm}{-1.5ex}{*1.8}
 
-\titleformat{\subsubsection}       % Customise the \subsection command
-  {\large\bfseries\raggedright} % Make the \subsection headers moderately large (\large),
+\titleformat{\subsubsection}       % Customise the \subsubsection command
+  {\large\bfseries\raggedright} % Make the \subsubsection headers moderately large (\large),
                                 % bold (\bfseries) and left aligned (\raggedright)
   {}{0em}                       % Can be used to give a prefix to all sections, like 'Section ...'
   {}                            % Can be used to insert code before the heading
   []
-\titlespacing*{\subsubsection}{0cm}{*-1.5}{*0.25}
+\titlespacing*{\subsubsection}{0cm}{-1ex}{*0.25}
 
-\titleformat{\paragraph}    % Customise the \subsubsection command
-  {\large\itshape\raggedright}  % Make the \subsubsection headers moderately large (\Large),
+\titleformat{\paragraph}    % Customise the \paragraph command
+  {\large\itshape\raggedright}  % Make the \paragraph headers moderately large (\Large),
                                 % italic (\itshape) and left aligned (\raggedright)
   {}{0em}                       % Can be used to give a prefix to all sections, like 'Section ...'
   {}                            % Can be used to insert code before the heading
@@ -246,7 +248,7 @@
 %\makeatother
 
 \newenvironment{sectabular}
-	{\begin{tabu} to \linewidth{X[r]|X[l,4.4]}}
+	{\begin{tabu} to \linewidth{X[r]|X[p,7.4]}}
 	{\end{tabu}}
 %{line width is \the\textwidth}{}
 
@@ -267,18 +269,18 @@
 				{\textbf {#2}}
 				\ifstrempty{#3}{}{\hfill#3}
 				\ifstrempty{#4}{\\}{\\#4}
-				\ifstrempty{#5}{}{&{\scshape#5}
+				\ifstrempty{#5}{}{{\scshape#5}
 				\ifstrempty{#6}{}{\hfill#6}}
-				\ifstrempty{#7}{}{\\&#7}
-				\ifstrempty{#8}{}{\\&#8}
-				\ifstrempty{#9}{}{\\&#9}
+				\ifstrempty{#7}{}{\\#7}
+				\ifstrempty{#8}{}{\\#8}
+				\ifstrempty{#9}{}{\\#9}
 			}
 	}
 
 \newcommand{\twotab}[2]
 	{
 		\begin{sectabular}
-			#1&#2
+			\begin{tabu}{@{}X[r]@{}}#1\end{tabu}&\begin{tabu}{@{}X[l]@{}}#2\end{tabu}
 		\end{sectabular}
 		\vspace{1.5mm}
 		\\
