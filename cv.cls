@@ -21,17 +21,19 @@
 	\RequirePackage{textcomp}
 	\RequirePackage[utf8]{inputenc}
 	\RequirePackage{lmodern}
-	\RequirePackage{microtype}
 	\RequirePackage{babel}
 \fi
 
+\RequirePackage{microtype}
 % \RequirePackage{accessibility}
 \RequirePackage{hyperref}
 % \RequirePackage{hyperxmp}
-\RequirePackage[raise]{datetime}
 \RequirePackage{csquotes}
 \RequirePackage{titlesec}
 \RequirePackage[country=US,foreign=international]{phonenumbers}
+\RequirePackage[en-US,showdow]{datetime2}
+\DTMlangsetup[en-US]{ord=raise}
+\renewcommand*{\DTMenglishampmfmt}[1]{~\textsc{#1}}
 %\RequirePackage{paralist}
 \RequirePackage[inline]{enumitem}
 \setlist{nolistsep}
@@ -241,7 +243,7 @@
 	\end{center}
 }
 
-%\rfoot{\footnotesize{Updated \today.}}
+\rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}
 
 \def\instring#1#2{TT\fi\begingroup
   \edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
