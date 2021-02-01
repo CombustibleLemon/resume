@@ -12,6 +12,7 @@
 	\RequirePackage{polyglossia}
 	\setdefaultlanguage[variant=american]{english}
 	\usepackage{unicode-math}
+	% \RequirePackage{CormorantGaramond}
 	\setmainfont{CMU Serif}
 	\setsansfont{CMU Sans Serif}
 	\setmonofont{CMU Typewriter Text}
@@ -28,7 +29,7 @@
 % \RequirePackage{accessibility}
 \RequirePackage{hyperref}
 % \RequirePackage{hyperxmp}
-\RequirePackage{csquotes}
+\RequirePackage[autostyle=true,autopunct=true]{csquotes}
 \RequirePackage{titlesec}
 \RequirePackage[country=US,foreign=international]{phonenumbers}
 \RequirePackage[en-US,showdow]{datetime2}
@@ -88,20 +89,14 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{etoolbox}
 \RequirePackage[
-    style=authoryear,
-    giveninits=true,
-    backend=biber,
-    sortcites=true,
-%    isbn=false,
-%    url=false,
-%    doi=false,
-%    eprint=false,
-    hyperref=true,
-    backref=true,
-%    firstinits=false,
-    bibencoding=utf8
-]{biblatex}
-% \RequirePackage{pdfx}
+	authordate,
+	backend=biber,
+	hyperref=true,
+	% backref=true,
+	nodates=false,
+	compresspages=true,
+	bibencoding=utf8
+]{biblatex-chicago}
 
 \RequirePackage[
 	letterpaper,
