@@ -1,6 +1,6 @@
 %!TEX
 
-\LoadClass[letterpaper]{article}
+\LoadClass[letterpaper,11pt]{article}
 
 %\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesClass{cv}[2020/08/30 v2]
@@ -12,8 +12,9 @@
 	\RequirePackage{polyglossia}
 	\setdefaultlanguage[variant=american]{english}
 	\usepackage{unicode-math}
-	% \RequirePackage{CormorantGaramond}
-	\setmainfont{CMU Serif}
+	\RequirePackage{CormorantGaramond}
+	% \setmainfont{CMU Serif}
+	% \setmainfont{Times New Roman}
 	\setsansfont{CMU Sans Serif}
 	\setmonofont{CMU Typewriter Text}
 	\setmathfont{Latin Modern Math}
@@ -31,6 +32,7 @@
 % \RequirePackage{hyperxmp}
 \RequirePackage[autostyle=true,autopunct=true]{csquotes}
 \RequirePackage{titlesec}
+\RequirePackage{needspace}
 \RequirePackage[country=US,foreign=international]{phonenumbers}
 \RequirePackage[en-US,showdow]{datetime2}
 \DTMlangsetup[en-US]{ord=raise}
@@ -85,11 +87,15 @@
 		annotation/.estore in = \eduAnnotation,
 }
 % \RequirePackage{mathtools}
+\RequirePackage{lipsum}
 \RequirePackage{censor}
 \RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
 \RequirePackage{etoolbox}
+% \RequirePackage{embedfile}
+% \RequirePackage{embedall}
 \RequirePackage[
-	authordate,
+	% authordate,
 	backend=biber,
 	hyperref=true,
 	% backref=true,
@@ -102,10 +108,45 @@
 	letterpaper,
 	left=0.8in,
 	right=0.8in,
-	top=0.6in,
+	top=1.0in,
 	bottom=0.8in,
-	nohead
+	% nohead
 ]{geometry}
+\RequirePackage{changepage}
+
+\newrobustcmd*{\citefirstlastauthor}{\AtNextCite{\DeclareNameAlias{labelname}{given-family}}\citeauthor}
+% Possessive citation \posscite{}
+\DeclareNameFormat{labelname:poss}{% Based on labelname from biblatex.def
+  \nameparts{#1}% Not needed if using Biblatex 3.4
+  \ifcase\value{uniquename}%
+    \usebibmacro{name:family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
+  \or
+    \ifuseprefix
+      {\usebibmacro{name:first-last}{\namepartfamily}{\namepartgiveni}{\namepartprefix}{\namepartsuffixi}}
+      {\usebibmacro{name:first-last}{\namepartfamily}{\namepartgiveni}{\namepartprefixi}{\namepartsuffixi}}%
+  \or
+    \usebibmacro{name:first-last}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
+  \fi
+  \usebibmacro{name:andothers}%
+  \ifnumequal{\value{listcount}}{\value{liststop}}{'s}{}}
+\DeclareFieldFormat{shorthand:poss}{%
+  \ifnameundef{labelname}{#1's}{#1}}
+\DeclareFieldFormat{citetitle:poss}{\mkbibemph{#1}'s}
+\DeclareFieldFormat{label:poss}{#1's}
+\newrobustcmd*{\posscitealias}{%
+  \AtNextCite{%
+    \DeclareNameAlias{labelname}{labelname:poss}%
+    \DeclareFieldAlias{shorthand}{shorthand:poss}%
+    \DeclareFieldAlias{citetitle}{citetitle:poss}%
+    \DeclareFieldAlias{label}{label:poss}}}
+\newrobustcmd*{\posscite}{%
+  \posscitealias%
+  \textcite}
+\newrobustcmd*{\Posscite}{\bibsentence\posscite}
+\newrobustcmd*{\posscites}{%
+  \posscitealias%
+  \textcites}
+% \SetCiteCommand{\parencite}
 
 %\RequirePackage[tagged]{accessibility}
 
@@ -199,7 +240,8 @@
 
 \renewcommand{\maketitle}
 {
-    %\vspace*{-4\baselineskip}
+	\thispagestyle{empty}
+    \vspace*{-0.95in}
     \begin{center}
         \begin{tabu} to \linewidth{X[7l]X[4l]X[4r]}
             {
@@ -220,25 +262,31 @@
     		    {\large{
                 \vspace{.1mm}
         		% Print email address if present
-        		\ifstrempty{@authoremail}{}
+        		\ifstrempty{@authoremail}{}%
         			{
-        				\hrefemail{\@authoremail}
+        				\mbox{\hrefemail{\@authoremail}}\!\phantom{}
         			}
         		% Print phone number if present
-        		\ifstrempty{@authorphone}{}
+        		\ifstrempty{@authorphone}{}%
         			{
-        			\phonenumber{8477077458}}
+						\mbox{\phonenumber{8477077458}} \!\phantom{}
+					}
         			%\href{tel:\@authorphone}{\@authorphone}}
         		% Print website if present
-        		\ifstrempty{@authorphone}{}
+        		\ifstrempty{@authorphone}{}%
         			{
-        			\href{\@authorwebsite}{\@authorwebsite}}}}
+						\mbox{\href{\@authorwebsite}{\@authorwebsite}}\!\phantom{}
+					}
+				}}%
     		}
     	\end{tabu}
 	\end{center}
 }
 
-\rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}
+\lhead{\scshape{\@author}}
+\rhead{\scshape{\@title}}
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+% \rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}
 
 \def\instring#1#2{TT\fi\begingroup
   \edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
