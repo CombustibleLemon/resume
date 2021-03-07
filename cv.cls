@@ -241,9 +241,9 @@
 \renewcommand{\maketitle}
 {
 	\thispagestyle{empty}
-    \vspace*{-0.95in}
+    \vspace*{-0.85in}
     \begin{center}
-        \begin{tabu} to \linewidth{X[7l]X[4l]X[4r]}
+        \begin{tabu} to \linewidth{@{}X[7l]X[4l]X[4r]@{}}
             {
                 \vspace{.1mm}
         		{\Huge{\scshape{\@author}}}
@@ -432,4 +432,5 @@
         \addcontentsline{toc}{subsection}{Letter}
     }
 
+\makeatletter
 \endinput
