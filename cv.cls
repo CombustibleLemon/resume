@@ -37,6 +37,7 @@
 \RequirePackage[en-US,showdow]{datetime2}
 \DTMlangsetup[en-US]{ord=raise}
 \renewcommand*{\DTMenglishampmfmt}[1]{~\textsc{#1}}
+\DTMsetzonestyle{map}
 %\RequirePackage{paralist}
 \RequirePackage[inline]{enumitem}
 \setlist{nolistsep}
@@ -283,15 +284,16 @@
 	\end{center}
 }
 
+\DTMsetzonestyle{map}
 \fancypagestyle{plain}{%
-	\fancyhf{}														% clear all header and footer fields
-	\rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}	% Except bottom right
+	\fancyhf{}															% clear all header and footer fields
+	\rfoot{\footnotesize{Updated \today{} at \DTMcurrenttime{} UTC.}}	% Except bottom right
 }
 
 \lhead{\scshape{\@author}}
 \rhead{\scshape{\@title}}
 \cfoot{Page \thepage\ of \pageref{LastPage}}
-\rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}
+\rfoot{\footnotesize{Updated \today{} at \DTMcurrenttime{} UTC.}}
 
 \def\instring#1#2{TT\fi\begingroup
   \edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
