@@ -240,7 +240,7 @@
 
 \renewcommand{\maketitle}
 {
-	\thispagestyle{empty}
+	\thispagestyle{plain}
     \vspace*{-0.85in}
     \begin{center}
         \begin{tabu} to \linewidth{@{}X[7l]X[4l]X[4r]@{}}
@@ -283,10 +283,15 @@
 	\end{center}
 }
 
+\fancypagestyle{plain}{%
+	\fancyhf{}														% clear all header and footer fields
+	\rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}	% Except bottom right
+}
+
 \lhead{\scshape{\@author}}
 \rhead{\scshape{\@title}}
 \cfoot{Page \thepage\ of \pageref{LastPage}}
-% \rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}
+\rfoot{\footnotesize{Updated\ \today\ at\ \DTMcurrenttime.}}
 
 \def\instring#1#2{TT\fi\begingroup
   \edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
